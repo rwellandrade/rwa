@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">iFood Clone</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="login_welcome">Bem vindo! Por favor faça o login</string>
+    <string name="welcome">Bem vindo ao menu principal!</string>
+    <string name="password">Senha</string>
+    <string name="login">Entrar</string>
+    <string name="invalid_password">Senha inválida</string>
+    <string name="exit">Sair</string>
+    <string name="action_update">Atualizar</string>
+    <string name="action_add">Adicionar</string>
+    <string name="action_settings">Configurações</string>
+    <string name="action_search">Pesquisar</string>
+</resources>
