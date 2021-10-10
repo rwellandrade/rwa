@@ -12,46 +12,78 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.aulaandroid.ifoodclone.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navigator: Navigator
     private lateinit var toast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navigator = Navigator()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.appBarMain.toolbar)
+
+        setupToolBarAndNavView()
         toast = Toast.makeText(baseContext, "", Toast.LENGTH_SHORT);
+    }
+
+    private fun setupToolBarAndNavView() {
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navViewMain
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_main, R.id.nav_login, R.id.nav_restaurants
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     // método sobrescrito para inflar o menu na Actionbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val v = menuInflater.inflate(R.menu.menu_main, menu)
-        (menu?.findItem(R.id.action_search)?.actionView as SearchView).setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String): Boolean {
-                // digitando
-                toast.cancel()
-                toast = Toast.makeText(applicationContext, "Digitando texto: $newText", Toast.LENGTH_SHORT)
-                toast.show()
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                toast.cancel()
-                toast = Toast.makeText(applicationContext, "Busca realizada: $query", Toast.LENGTH_SHORT)
-                toast.show()
-                return true
-            } // pressionou para buscar
-        })
+//        (menu?.findItem(R.id.action_search)?.actionView as SearchView).setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener {
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                // digitando
+//                toast.cancel()
+//                toast = Toast.makeText(
+//                    applicationContext,
+//                    "Digitando texto: $newText",
+//                    Toast.LENGTH_SHORT
+//                )
+//                toast.show()
+//                return true
+//            }
+//
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                toast.cancel()
+//                toast = Toast.makeText(
+//                    applicationContext,
+//                    "Busca realizada: $query",
+//                    Toast.LENGTH_SHORT
+//                )
+//                toast.show()
+//                return true
+//            } // pressionou para buscar
+//        })
         return true
     }
 
@@ -84,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         if (nextTitle.isNotEmpty()) {
-            navigator.goToSecond(this, nextTitle);
+//            navigator.goToSecond(this, nextTitle);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -101,12 +133,6 @@ class MainActivity : AppCompatActivity() {
             },
             5_000
         )
-    }
-
-    fun hideKeyboard(view: View) {
-        // Enconder o teclado
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
