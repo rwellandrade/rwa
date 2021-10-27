@@ -3,13 +3,21 @@ package com.aulaandroid.ifoodclone.viewmodels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.aulaandroid.ifoodclone.data.DataSource
-import com.aulaandroid.ifoodclone.data.Restaurant
+import com.aulaandroid.ifoodclone.data.Product
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class RestaurantListViewModel(val dataSource: DataSource) : ViewModel() {
 
-    val restaurantsLiveData = dataSource.getRestaurantList()
+//    val restaurantsLiveData = dataSource.getRestaurantList()
+
+    private fun getRestaurantList() {
+        viewModelScope.launch {
+//            val listResult = UserApiService.IUserApiService.getUser()
+        }
+    }
 
     fun insertRestaurants(restaurantName: String?, restaurantDescription: String?) {
         if (restaurantName == null || restaurantDescription == null) {
@@ -18,25 +26,8 @@ class RestaurantListViewModel(val dataSource: DataSource) : ViewModel() {
 
 
         val id = Random.nextLong()
-        val newRestaurant = Restaurant(
-            id,
-            "Restaurante $id",
-            "Descrição restaurante $id"
-        )
 
-        dataSource.addRestaurant(newRestaurant)
+//        dataSource.addRestaurant(newRestaurant)
     }
 }
 
-class RestaurantListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RestaurantListViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return RestaurantListViewModel(
-                dataSource = DataSource.getDataSource(context.resources)
-            ) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
