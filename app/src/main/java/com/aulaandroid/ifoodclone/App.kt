@@ -11,7 +11,8 @@ class App : Application() {
     }
 
     companion object {
-        public const val API_HOST = "http://10.0.2.2:5000"
+//        public const val API_HOST = "http://10.0.2.2:5000"
+        public const val API_HOST = "https://kalmeida.pythonanywhere.com"
         private var appInstance: App? = null
         fun getInstance(): App {
             if (appInstance == null) {
