@@ -18,4 +18,5 @@
     <string name="action_settings">Configurações</string>
     <string name="action_search">Pesquisar</string>
     <string name="restaurants">Produtos</string>
+    <string name="map">Mapa</string>
 </resources>
