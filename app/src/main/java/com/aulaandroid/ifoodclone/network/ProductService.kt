@@ -13,7 +13,7 @@ object ProductService {
     fun getProducts(context: Context): List<Product> {
         val products: ArrayList<Product>
         return if (AndroidUtils.isOnline()) {
-            val url = "$API_HOST/products"
+            val url = "$API_HOST/v1/products"
             val json = HttpHelper.get(url)
             products = parseJson(json)
             for (d in products) {
